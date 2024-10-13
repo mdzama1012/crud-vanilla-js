@@ -4,39 +4,48 @@ function handleSubmit(event) {
 	if (isEditMode) {
 		const userId = parseInt(editingRow.querySelector('td').textContent);
 		updateUserByUserId(userId, formData)
+			.then(res => {
+				if (!res.ok) throw new Error('Something went wrong!');
+				return res.json();
+			})
 			.then(() => getUserByUserId(userId))
+			.then(res => {
+				if (!res.ok) throw new Error('Something went wrong!');
+				return res.json();
+			})
+			.then(res => {
+				updateRow(res[0], editingRow);
+				resetUserInterface();
+			})
+			.catch(err => console.log(err));
+	} else {
+		createUser(formData)
 			.then(res => res.json())
-			.then(res => updateRow(res[0], editingRow))
-			.catch(err => console.log(err))
-			.then(() => resetUserInterface());
-		return;
+			.then(res => getUserByUserId(parseInt(res.user_id)))
+			.then(res => res.json())
+			.then(res => displayUser(res))
+			.catch(err => console.log(err));
+		resetUserInterface();
 	}
-	createUser(formData)
-		.then(res => res.json())
-		.then(res => getUserByUserId(parseInt(res.user_id)))
-		.then(res => res.json())
-		.then(res => displayUser(res))
-		.catch(err => console.log(err));
-	resetUserInterface();
 }
 
 function handleUserAction(event) {
 	isEditMode && resetUserInterface();
 	const button = event.target.parentElement;
-	if (
-		button.classList.contains('delete-user') &&
-		confirm('Are you sure you want to delete this user?')
-	) {
-		const targetRow = button.closest('tr');
-		const userId = parseInt(targetRow.querySelector('td').textContent);
-		deleteUserByUserId(userId)
-			.then(() => {
-				targetRow.remove();
-				resetUserInterface();
-			})
-			.catch(err => console.log(err));
-	}
-	if (button.classList.contains('edit-user')) {
+	if (!button) return;
+	if (button.classList.contains('delete-user')) {
+		if (confirm('Are you sure you want to delete this user?')) {
+			const targetRow = button.closest('tr');
+			const userId = parseInt(targetRow.querySelector('td').textContent);
+			deleteUserByUserId(userId)
+				.then(res => {
+					if (!res.ok) throw new Error('Something went wrong!');
+					targetRow.remove();
+					resetUserInterface();
+				})
+				.catch(err => console.log(err));
+		}
+	} else if (button.classList.contains('edit-user')) {
 		editingRow = button.closest('tr');
 		setEditMode();
 	}
@@ -44,7 +53,10 @@ function handleUserAction(event) {
 
 function fetchAndPopulateUserTable() {
 	getAllUsers()
-		.then(res => res.json())
+		.then(res => {
+			if (!res.ok) throw new Error('Something went wrong!');
+			return res.json();
+		})
 		.then(res => displayUser(res))
 		.catch(err => console.log(err));
 }

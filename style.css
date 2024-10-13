@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap');
+
+/* Global styles */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	background-color: var(--primary-bg);
+	color: var(--secondary-text);
+	line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: 'Poppins', sans-serif;
+	font-size: 40px;
+	margin-left: 10px;
+	color: var(--primary-text);
+}
+
+/* Container styling */
+#container {
+	width: 80%;
+	margin: 30px auto;
+	padding: 30px;
+	border-radius: 10px;
+	background-color: #fff;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+/* Form styling */
+#user-form {
+	display: flex;
+	width: 35%;
+	flex-direction: column;
+	background-color: var(--primary-bg);
+	border-radius: 10px;
+	padding: 20px;
+}
+
+#user-form input {
+	margin-bottom: 12px;
+	padding: 12px;
+	outline: none;
+	border-radius: 5px;
+	border: 2px solid var(--secondary-bg);
+	transition: border-color 0.3s ease;
+}
+
+#user-form input:focus {
+	border-color: var(--accent-color);
+}
+
+/* Table styling */
+#user-table {
+	width: 100%;
+	margin-top: 30px;
+	border-collapse: collapse;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+#user-table th,
+#user-table td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1.25px solid #e0e0e0;
+}
+
+#user-table th {
+	color: #fff;
+	background-color: var(--accent-color);
+	font-size: 15px;
+}
+
+#user-table tr:hover {
+	background-color: var(--primary-bg);
+}
+
+#user-table td {
+	color: var(--secondary-text);
+}
+
+/* Button styling */
+.btn {
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-user,
+.delete-user {
+	font-size: 20px;
+	background-color: transparent;
+}
+
+.edit-user {
+	color: #28a745;
+	margin-right: 15px;
+}
+
+.edit-user:hover {
+	transform: scale(1.25);
+}
+
+.delete-user {
+	color: #ec644b;
+}
+
+.delete-user:hover {
+	transform: scale(1.25);
+}
+
+.cancel-btn,
+#submit-btn {
+	width: 35%;
+	height: 40px;
+	border-radius: 6px;
+	color: #fff;
+	font-size: 14px;
+	transition: transform 0.3s ease;
+}
+
+.cancel-btn {
+	background-color: #ec644b;
+}
+
+#submit-btn {
+	background-color: var(--accent-color);
+	margin-right: 3px;
+}
+
+#submit-btn:hover,
+.cancel-btn:hover {
+	transform: scale(1.05);
+}
+
+/* JS dynamically hidden */
+.hidden {
+	display: none !important;
+}
+
+/* Color variables */
+:root {
+	--primary-bg: #e0f7fa;
+	--secondary-bg: #b3e5fc;
+	--primary-text: #1d72b8;
+	--secondary-text: #555555;
+	--accent-color: #1d72b8;
+	--border-color: #d9d9d9;
+	--hover-bg: #f4f5f7;
+}
